@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  username String @id
+  repo String
+  repoBranch String
+}
+
+model Blog {
+  id String @id
+  title String
+  dsc String
+  repo String
+  author String
+  repoBranch String
+  content String
+  metaTitle String
+  metaImage String
+  metaDsc String
+}
+
+model Auth {
+  username String @id
+  access_token String @db.VarChar(400)
+}
