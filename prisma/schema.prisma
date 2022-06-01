@@ -12,7 +12,8 @@ datasource db {
 model User {
   username String @id
   repo String
-  repoBranch String
+  category String
+  category_id String
 }
 
 model Blog {
@@ -20,15 +21,10 @@ model Blog {
   title String
   dsc String
   repo String
+  date DateTime
   author String
-  repoBranch String
-  content String
+  content String @db.LongText()
   metaTitle String
   metaImage String
   metaDsc String
-}
-
-model Auth {
-  username String @id
-  access_token String @db.VarChar(400)
 }

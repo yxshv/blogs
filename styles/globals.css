@@ -10,8 +10,8 @@
     right: 0;
     width: 0%;
     height: 4px;
-    background-color: rgb(168,85,247);
-    transition: all 500ms;
+    background-color: rgb(168, 85, 247);
+    transition: all 300ms;
 }
 
 .bg-tiles {
@@ -19,10 +19,22 @@
 }
 
 .spectrum {
-    background-image: linear-gradient(135deg,#0b6ec5,#5e49af,#f35815,#fed54a 100%);
+    background-image: linear-gradient(135deg, #0b6ec5, #5e49af, #f35815, #fed54a 100%);
 }
 
 .home-text-purple:hover::before {
     width: 100%;
     left: 0;
+}
+
+@media only screen and (max-width: 600px) {
+    .p-rose {
+        width: 95vw !important;
+    }
+}
+
+.p-rose pre {
+    background-color: #2D2D2D;
+    padding: 1.5rem !important;
+    font-size: medium !important;
 }

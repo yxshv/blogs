@@ -23,39 +23,13 @@ const AuthCallback = ({ accessToken } : any) => {
 export async function getServerSideProps (context : any) {
     const { code } = context.query;
 
-    const resp = await fetch(`http://localhost:3000/exchange_code?code=${code}`)     
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}exchange_code?code=${code}`)     
 
     const txt = await resp.json()
     
     const accessToken = queryString.parse(txt).access_token;
 
     if (accessToken === undefined) return
-
-    const ress = await fetch(
-        `https://api.github.com/user`,
-        {
-            headers: {
-                Authorization: `token ${accessToken}`
-            }
-        }
-    )
-
-    const jsoN = await ress.json()
-    const enycrpted = cryptr.encrypt((`${accessToken}`))
-
-    await prisma.auth.upsert({
-        where: {
-            username: jsoN.login,
-        },
-        update: {
-            access_token: enycrpted,
-        },
-        create: {
-            username: jsoN.login,
-            access_token: enycrpted,
-        }
-
-    })
     
     return {
         props : {

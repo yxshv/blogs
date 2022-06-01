@@ -6,11 +6,7 @@ interface User {
     avatar : string;
 }
 
-interface Props {
-    ifNoUser : (() => void) | null | undefined;
-}
-
-const useAuth = ({ ifNoUser } : Props) => {
+const useAuth = (ifNoUser? : (() => void)) => {
     const [user, setUser] = useState<User | null>(null);
     const route = useRouter()
 

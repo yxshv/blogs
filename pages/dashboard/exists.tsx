@@ -11,34 +11,29 @@ interface Repo {
 	private: boolean;
 }
 
-const DashboardNew: NextPage = () => {
-	
-	const { user, Login, Logout } = useAuth(() => { Login() })
+const DashboardExists: NextPage = ({ repo }: any) => {
 
+    const { user, Login, Logout } = useAuth(() => { Login() })
 	const router = useRouter();
-	
-	const [repos, setRepos] = useState<Repo[]>([])
-	const [selectedRepo, setSelectedRepo] = useState<string>("");
+
+    const [repos, setRepos] = useState<Repo[]>([])
+	const [selectedRepo, setSelectedRepo] = useState<string>(repo);
 	const [loading,setLoading] = useState<boolean>(false);
 
-	async function doIt() {
+    async function doIt() {
 		if (selectedRepo === "" || selectedRepo === undefined || selectedRepo === null) return
 		setLoading(true)
 		fetch(
 			`${process.env.NEXT_PUBLIC_BACKEND_URL}update_user?username=${user?.username}&repo=${selectedRepo}`,
 		).then(
 			async (resp) => {
-				const json = await resp.json();
-				console.log(json)
-
-				window.location.href = "https://github.com/apps/blogs-for-you/installations/new"
-
+				fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}update_blog?username=${user!.username}`)
 				setLoading(false)
 			}
 		)
 	}
 
-	useEffect(() => {
+    useEffect(() => {
 		if (user) {
 			setLoading(true);
 			fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}get_repos?username=${user.username}`).then(
@@ -54,7 +49,6 @@ const DashboardNew: NextPage = () => {
 					});
 
 					setRepos(result)
-
 					setLoading(false)
 				}
 			)
@@ -62,11 +56,11 @@ const DashboardNew: NextPage = () => {
 		
 	},[user])
 
-	return (
-		<div className="w-screen min-h-screen bg-black text-neutral-100 ">
+    return (
+        <div className="w-screen min-h-screen bg-black text-neutral-100 ">
 			<div className="flex flex-col items-center justify-center">
 				<h1 className="pt-12 pb-24 text-center text-4xl">
-					Import a repository from GitHub
+					Configure the repository
 				</h1>
 				<MantineProvider theme={{ colorScheme: 'dark' }}>
 					<div className="flex items-center justify-center">
@@ -82,6 +76,7 @@ const DashboardNew: NextPage = () => {
 							placeholder="You can only pick Public repos"
 							className='sm:w-96'
 							disabled={loading}
+                            defaultValue={repo}
 							data={(() => {
 								interface Result {
 									value: string;
@@ -91,7 +86,7 @@ const DashboardNew: NextPage = () => {
 								repos.forEach((repo : Repo) => {
 									result.push({
 										value : repo.path,
-										label : `${repo.path}`
+										label : repo.path
 									})
 								});
 								return result
@@ -113,12 +108,26 @@ const DashboardNew: NextPage = () => {
 							doIt()
 						}}
 					>
-						Next <MdNavigateNext fontSize='20px' />
+						Update <MdNavigateNext fontSize='20px' />
 					</Button>
 				</MantineProvider>
 			</div>
 		</div>
-	)
+    )
 }
 
-export default DashboardNew
+interface Props {
+    query : {
+        repo : string;
+    }
+}
+
+export async function getServerSideProps({ query : { repo } } : Props) {
+    return {
+        props: {
+            repo : repo
+        }
+    }
+}
+
+export default DashboardExists;

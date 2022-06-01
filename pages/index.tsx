@@ -8,7 +8,7 @@ import useAuth from '../hooks/useAuth'
 const Home: NextPage = () => {
 
 	const router = useRouter()
-	const {user,Login,Logout} = useAuth({ ifNoUser: null })
+	const {user,Login,Logout} = useAuth()
 
 	return (
 		<div className='min-h-screen w-screen bg-black'>
@@ -32,28 +32,12 @@ const Home: NextPage = () => {
 								transition 
 								duration-500
 							'
-							onClick={user ? () => { router.push('/dashboard') } : Login }
+							onClick={() => {
+								window.location.href = "https://kekda-blog.vercel.app/blogs/write-blogs-seconds"
+							}}
 						>
 							Get Started
 						</button>
-						<button 
-							className='
-								home-button
-								border-2
-								border-purple-500
-								px-4 py-3 
-								rounded-md
-								text-purple-500
-								hover:bg-purple-500
-								font-medium
-								hover:text-black
-								transition
-								duration-500
-							'
-						>
-							Read the docs
-						</button>
-
 					</div>
 				</div>
 			</div>
