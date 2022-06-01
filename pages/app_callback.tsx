@@ -32,7 +32,7 @@ const AppCallback: NextPage = () => {
         <>
             {repo && (
                 <>
-                    <h1>The blog should be up in few mins. check for it here - <a className="text-blue-400" href={`${process.env.NEXT_PUBLIC_BACKEND_URL}u/${repo.username}/`}>{`${process.env.NEXT_PUBLIC_BACKEND_URL}u/${repo.username}/`}</a> </h1>
+                    <h1>The blog should be up in few mins. check for it here - <a className="text-blue-400" href={`/u/${repo.username}/`}>{`https://blogs-for-u.vercel.app/u/${repo.username}/`}</a> </h1>
                 </>
             )}
         </>
