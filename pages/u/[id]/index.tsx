@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import LinkPost from "../../../components/LinkPost";
 
 const UserPosts: NextPage = ({ id , json }: any) => {
@@ -10,6 +11,9 @@ const UserPosts: NextPage = ({ id , json }: any) => {
             ) : (
                 <>
                     <div className="flex justify-center">
+                        <Head>
+                            <title>{id}'s Posts</title>
+                        </Head>
                         <div className="prose px-6 p-rose prose-invert md:prose-xl">
                             <div className="flex flex-col">
                                 <h1>{id}'s Posts</h1>
