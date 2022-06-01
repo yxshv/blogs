@@ -6,24 +6,16 @@ Write and deploy blogs in seconds with comments support
 
 ***
 
-### Installation
-```
-git clone https://github.com/kekda-py/blogs
-git clone 
-cd blogs-for-u
-npm install
-```
-
-### Usage
-```
-npm start
-```
+Visit it here - https://blogs-for-u.vercel.app
 
 ### Contributing
+Feel free to contribute
 
 ### License
 This project is licensed under the MIT license
+
 ### Show your support
+
 Leave a ⭐ if you like this project
 
 ***
