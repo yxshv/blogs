@@ -1,19 +1,14 @@
 import { useEffect } from "react";
-import { prisma } from '../../db/client'
 import queryString from 'query-string'
-import Cryptr from 'cryptr';
 import { useRouter } from "next/router";
-
-
-const cryptr = new Cryptr(process.env.NEXT_PUBLIC_CRYP_KEY!)
 
 const AuthCallback = ({ accessToken } : any) => {
 
     const router = useRouter()
 
     useEffect(() => {
-        router.push('/')
         localStorage.setItem('accessToken', accessToken)
+        router.push('/dashboard')
     })
 
     return null
